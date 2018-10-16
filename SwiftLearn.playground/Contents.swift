@@ -1,3 +1,4 @@
+import Foundation
 ////: Playground - noun: a place where people can play
 //
 //import UIKit
@@ -204,35 +205,118 @@
 //
 125.0/2.4
 
-struct Stack<Element> {
-    var items = [Element]()
-    mutating func push(_ item: Element) {
-        items.append(item)
-    }
-    mutating func pop() ->Element {
-        return items.removeLast()
-    }
+/*
+ * 泛型学习
+ */
+//struct Stack<Element> {
+//    var items = [Element]()
+//    mutating func push(_ item: Element) {
+//        items.append(item)
+//    }
+//    mutating func pop() ->Element {
+//        return items.removeLast()
+//    }
+//}
+//
+//var stackOfStrings = Stack<String>()
+//stackOfStrings.push("hello")
+//stackOfStrings.push("world")
+//let top = stackOfStrings.pop()
+//
+//extension Stack {
+//    var topItem: Element? {
+//        return items.isEmpty ? nil : items[items.count - 1]
+//    }
+//}
+//
+//print(stackOfStrings.topItem)
+//
+////类型约束，给泛型加上约束，使得泛型遵循某种规定
+//func findIndex<T: Equatable>(of valueToFind:T, in array: [T])->Int? {
+//    for (index, value) in array.enumerated() {
+//        if value == valueToFind {
+//            return index
+//        }
+//    }
+//    return nil
+//}
+
+
+//typealias使用,顾名思义，创建别名
+//1. 简单使用
+class myclass {
+    typealias Strings = [String]
+    var strs : Strings? //是不是感觉没啥卵用
 }
 
-var stackOfStrings = Stack<String>()
-stackOfStrings.push("hello")
-stackOfStrings.push("world")
-let top = stackOfStrings.pop()
-
-extension Stack {
-    var topItem: Element? {
-        return items.isEmpty ? nil : items[items.count - 1]
-    }
+//2.错了，typealias可以定义闭包，当一个函数比较长时，此时如果参数中有闭包，写起来是比较痛苦的，此时typealias就发挥作用了,像下面的代码，写起来多痛苦
+class MyManager: Codable {
+    //...
+    //1 . 优化前
+//    func foo(success: (_ data: Data, _ message: String, _ status: Int, _ isEnabled: Bool) -> (), failure: (_ error: Error, _ message: String, _ workaround: AnyObject) -> ()) {
+//        if isSuccess {
+//            success(..., ..., ..., ...)
+//        } else {
+//            failure(..., ..., ...)
+//        }
+//    }
+//
+//    func bar(success: (_ data: Data, _ message: String, _ status: Int, _ isEnabled: Bool) -> (), failure: (_ error: Error, _ message: String, _ workaround: AnyObject) -> ()) {
+//        if isSuccess {
+//            success(..., ..., ..., ...)
+//        } else {
+//            failure(..., ..., ...)
+//        }
+//    }
+    
+    // ...
+    
+    //2. 优化后
+    typealias Success = (_ data: Data, _ message: String, _ status: Int, _ isEnabled: Bool) -> ()
+    typealias Failure = (_ error: Error, _ message: String, _ workaround: AnyObject) -> ()
+    
+//    func foo(success: Success , failure: Failure) {
+//        if isSuccess {
+//            success(..., ..., ..., ...)
+//        } else {
+//            failure(..., ..., ...)
+//        }
+//    }
+//
+//    func bar(success: Success, failure: Failure) {
+//        if isSuccess {
+//            success(..., ..., ..., ...)
+//        } else {
+//            failure(..., ..., ...)
+//        }
+//    }
 }
 
-print(stackOfStrings.topItem)
+//系统库中也广泛使用typealias，比如Codable
+//public typealias Codable = Decodable & Encodable
 
-//类型约束，给泛型加上约束，使得泛型遵循某种规定
-func findIndex<T: Equatable>(of valueToFind:T, in array: [T])->Int? {
-    for (index, value) in array.enumerated() {
-        if value == valueToFind {
-            return index
-        }
-    }
-    return nil
-}
+//Self，经常在接口定义中出现，表示实现了这个接口的类型本身以及这个类型的子类
+//protocol CopyAble {
+//    func copy() ->Self
+//}
+//
+//class MyClass: CopyAble {
+//    var num = 1
+//    func copy() -> Self {
+//        let result = type(of: self).init()
+//        result.num = num
+//        return result
+//    }
+//    
+//    required init() {
+//        
+//    }
+//}
+//
+//let object = MyClass()
+//object.num = 100
+//let copyObject = object.copy()
+//object.num = 1
+//print("original object \(object.num)")
+//print("new object \(copyObject.num)")
+
