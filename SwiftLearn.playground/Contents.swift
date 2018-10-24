@@ -320,3 +320,76 @@ class MyManager: Codable {
 //print("original object \(object.num)")
 //print("new object \(copyObject.num)")
 
+
+// extension metthod
+//protocol SomeProtocol{
+//    func foo()->Void
+//}
+//
+//extension SomeProtocol{
+//    func foo()->Void{
+//        // do something
+//        print("extension metthod foo")
+//    }
+//}
+//class SomeClassA : NSObject, SomeProtocol{
+//}
+//
+//class SomeClassB: SomeClassA {
+//    func foo() {
+//        print("class B metthod")
+//    }
+//}
+//let some = SomeClassA()
+//some.foo()
+//let someB = SomeClassB()
+//someB.foo()
+
+//reduce
+
+extension Array {
+    func reduce<T>(_ initial: T, combine: (T, Element) -> T) ->T {
+        var result = initial
+        for x in self {
+            result = combine(result, x)
+        }
+        return result
+    }
+
+    //用reduce 实现filter
+    func filterUsingReduce(includeElement: (Element) -> Bool) -> [Element] {
+        return reduce([]) { result, x in
+            return includeElement(x) ? result + [x] : result
+        }
+    }
+
+    //用reduce 实现map
+    func mapUsingReduce<T>(tranform: (Element) -> T) -> [T] {
+        return reduce([]){ result, x in
+            return result + [tranform(x)]
+        }
+    }
+}
+
+let array = [1,2,3,4,5,6,7]
+print("array self method reduce \(array.reduce(0, combine: +))")
+print(array.reduce(0){ result, x in
+    result + x
+})
+
+array.mapUsingReduce { x in
+    return x * x
+}
+
+let strArr = ["a", "b", "c"]
+let append = strArr.reduce("lalal", combine: +)
+
+let matrix = [[1,2,3],[4,6],[9,0,10]]
+print(matrix.reduce([]){ result , x in
+    result + x
+    }.filterUsingReduce(includeElement: { x in
+        return x > 4
+    }))
+
+
+
