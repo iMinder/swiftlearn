@@ -347,49 +347,81 @@ class MyManager: Codable {
 
 //reduce
 
-extension Array {
-    func reduce<T>(_ initial: T, combine: (T, Element) -> T) ->T {
-        var result = initial
-        for x in self {
-            result = combine(result, x)
-        }
-        return result
-    }
+//extension Array {
+//    func reduce<T>(_ initial: T, combine: (T, Element) -> T) ->T {
+//        var result = initial
+//        for x in self {
+//            result = combine(result, x)
+//        }
+//        return result
+//    }
+//
+//    //用reduce 实现filter
+//    func filterUsingReduce(includeElement: (Element) -> Bool) -> [Element] {
+//        return reduce([]) { result, x in
+//            return includeElement(x) ? result + [x] : result
+//        }
+//    }
+//
+//    //用reduce 实现map
+//    func mapUsingReduce<T>(tranform: (Element) -> T) -> [T] {
+//        return reduce([]){ result, x in
+//            return result + [tranform(x)]
+//        }
+//    }
+//}
 
-    //用reduce 实现filter
-    func filterUsingReduce(includeElement: (Element) -> Bool) -> [Element] {
-        return reduce([]) { result, x in
-            return includeElement(x) ? result + [x] : result
-        }
-    }
-
-    //用reduce 实现map
-    func mapUsingReduce<T>(tranform: (Element) -> T) -> [T] {
-        return reduce([]){ result, x in
-            return result + [tranform(x)]
-        }
-    }
-}
-
-let array = [1,2,3,4,5,6,7]
-print("array self method reduce \(array.reduce(0, combine: +))")
-print(array.reduce(0){ result, x in
-    result + x
-})
-
-array.mapUsingReduce { x in
-    return x * x
-}
-
-let strArr = ["a", "b", "c"]
-let append = strArr.reduce("lalal", combine: +)
-
-let matrix = [[1,2,3],[4,6],[9,0,10]]
-print(matrix.reduce([]){ result , x in
-    result + x
-    }.filterUsingReduce(includeElement: { x in
-        return x > 4
-    }))
+//let array = [1,2,3,4,5,6,7]
+//print(array.reduce(0, { result , x in
+//    result + x
+//    }))
+//print("array self method reduce \(array.reduce(0, combine: +))")
+//print(array.reduce(0){ result, x in
+//    result + x
+//})
+//
+//array.mapUsingReduce { x in
+//    return x * x
+//}
+//
+//let strArr = ["a", "b", "c"]
+//let append = strArr.reduce("lalal", combine: +)
+//
+//let matrix = [[1,2,3],[4,6],[9,0,10]]
+//print(matrix.reduce([]){ result , x in
+//    result + x
+//    }.filterUsingReduce(includeElement: { x in
+//        return x > 4
+//    }))
 
 
+//let str = "012ef"
+//print(str.utf16)
+//print(str.utf16.count)
+//
+//let s1 = "\u{0041}"
+//let s2 = "e\u{0301}"
+//
+//
+//let s1Form = s1.precomposedStringWithCanonicalMapping
+//let s2Form = s2.precomposedStringWithCanonicalMapping
+//print(s1Form == s2Form)
+//
+//let s3 = "ff"
+//let s4 = "\u{FB00}"
+//let s5 = "\u{20FFF}"
+//let result = s3.localizedCompare(s4)
+//print("\(result == .orderedSame)")
+//print(s5.utf8CString)
+//let precomposed: Character = "\u{D55C}"
+//let decomposed: Character = "\u{1112}\u{1161}\u{11AB}"
+//
+//let test: String = "Hello 😘"
+//test.count
+//(test as NSString).length
+
+//字符串处理片段
+"hello world".capitalized
+"HELLO worlD".lowercased()
+[1,2,3,4,5].dropFirst(3)
 
