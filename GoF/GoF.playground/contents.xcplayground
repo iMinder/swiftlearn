@@ -3,5 +3,6 @@
     <pages>
         <page name='Adapter'/>
         <page name='AbstracFactory'/>
+        <page name='Builder'/>
     </pages>
 </playground>

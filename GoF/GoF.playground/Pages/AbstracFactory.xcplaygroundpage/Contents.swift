@@ -63,8 +63,10 @@ class Client {
         case .factoryA:
             return ConcreateFactoryA1()
         case .factoryB
-            return ConcreateFactoryA2
+            return ConcreateFactoryA2()
     }
-        
+    init (factoryType: FactoryType) {
+        self.factoryType = factoryType
+    }
 }
 //: [Next](@next)
