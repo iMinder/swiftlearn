@@ -4,5 +4,6 @@
         <page name='Adapter'/>
         <page name='AbstracFactory'/>
         <page name='Builder'/>
+        <page name='ProtoType'/>
     </pages>
 </playground>
