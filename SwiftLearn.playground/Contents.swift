@@ -421,7 +421,34 @@ class MyManager: Codable {
 //(test as NSString).length
 
 //字符串处理片段
-"hello world".capitalized
-"HELLO worlD".lowercased()
-[1,2,3,4,5].dropFirst(3)
+//"hello world".capitalized
+//"HELLO worlD".lowercased()q
+//[1,2,3,4,5].dropFirst(3)
 
+//lazy 处理，等真正需要的时候才回去遍历，并且在得到满足条件的结果后不再向后计算
+//let array = [1,2,3,4,5]
+//let value = array.lazy.filter {
+//    print("filter \($0)")
+//    return $0 > 3
+//}
+    //.first
+
+//这个和上面得到的结果是一样的，都计算了四次
+//let value1 = array.first(where: {
+//    print("filter value1 \($0)")
+//    return $0 > 3
+//})
+
+//进一步理解lazy和非lazy的区别就是，lazy是等用到一个再去计算一个
+//no filter
+[1,2,3,-3,4,-1].filter({ print("filter one \($0)"); return $0 > 0 }).reduce(0) { (total, ele) -> Int in
+    print("count one \(total)")
+    return total + ele
+}
+
+//with filter
+print("\nwith filter\n")
+[1,2,3,-3,4,-1].lazy.filter({ print("filter one \($0)"); return $0 > 0 }).reduce(0) { (total, ele) -> Int in
+    print("count one \(total)")
+    return total + ele
+}
