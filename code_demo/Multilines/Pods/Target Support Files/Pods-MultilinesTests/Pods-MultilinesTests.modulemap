@@ -1,0 +1,6 @@
+framework module Pods_MultilinesTests {
+  umbrella header "Pods-MultilinesTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
